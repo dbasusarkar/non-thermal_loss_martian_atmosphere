@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>maven_ion_fluxes.pro</title>
+<meta name="generator" content="emacs 24.3.1; htmlfontify 0.21" />
+<style type="text/css"><!-- 
+body { font-family: Monaco;  font-stretch: normal;  font-weight: 500;  font-style: normal;  color: #e0dfdb;  background: #102372;  font-size: 12pt;  text-decoration: none; }
+span.default   { font-family: Monaco;  font-stretch: normal;  font-weight: 500;  font-style: normal;  color: #e0dfdb;  background: #102372;  font-size: 12pt;  text-decoration: none; }
+span.default a { font-family: Monaco;  font-stretch: normal;  font-weight: 500;  font-style: normal;  color: #e0dfdb;  background: #102372;  font-size: 12pt;  text-decoration: underline; }
+span.constant   { color: #7fffd4;  font-family: Monaco;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #102372;  font-size: 12pt;  text-decoration: none; }
+span.constant a { color: #7fffd4;  font-family: Monaco;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #102372;  font-size: 12pt;  text-decoration: underline; }
+span.string   { color: #ffa07a;  font-family: Monaco;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #102372;  font-size: 12pt;  text-decoration: none; }
+span.string a { color: #ffa07a;  font-family: Monaco;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #102372;  font-size: 12pt;  text-decoration: underline; }
+span.comment   { color: #ff7f24;  font-family: Monaco;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #102372;  font-size: 12pt;  text-decoration: none; }
+span.comment a { color: #ff7f24;  font-family: Monaco;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #102372;  font-size: 12pt;  text-decoration: underline; }
+span.comment-delimiter   { color: #ff7f24;  font-family: Monaco;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #102372;  font-size: 12pt;  text-decoration: none; }
+span.comment-delimiter a { color: #ff7f24;  font-family: Monaco;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #102372;  font-size: 12pt;  text-decoration: underline; }
+span.function-name   { color: #87cefa;  font-family: Monaco;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #102372;  font-size: 12pt;  text-decoration: none; }
+span.function-name a { color: #87cefa;  font-family: Monaco;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #102372;  font-size: 12pt;  text-decoration: underline; }
+span.keyword   { color: #00ffff;  font-family: Monaco;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #102372;  font-size: 12pt;  text-decoration: none; }
+span.keyword a { color: #00ffff;  font-family: Monaco;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #102372;  font-size: 12pt;  text-decoration: underline; }
+ --></style>
+
+    <script type="text/javascript"><!--
+  // this function is needed to work around
+  // a bug in IE related to element attributes
+  function hasClass(obj)
+  {
+      var result = false;
+      if (obj.getAttributeNode("class") != null)
+      {
+          result = obj.getAttributeNode("class").value;
+      }
+      return result;
+  }
+
+  function stripe(id)
+  {
+      // the flag we'll use to keep track of
+      // whether the current row is odd or even
+      var even = false;
+
+      // if arguments are provided to specify the colors
+      // of the even & odd rows, then use the them;
+      // otherwise use the following defaults:
+      var evenColor = arguments[1] ? arguments[1] : "#fff";
+      var oddColor  = arguments[2] ? arguments[2] : "#ddd";
+
+      // obtain a reference to the desired table
+      // if no such table exists, abort
+      var table = document.getElementById(id);
+      if (! table) { return; }
+
+      // by definition, tables can have more than one tbody
+      // element, so we'll have to get the list of child
+      // &lt;tbody&gt;s
+      var tbodies = table.getElementsByTagName("tbody");
+
+      // and iterate through them...
+      for (var h = 0; h < tbodies.length; h++)
+      {
+          // find all the &lt;tr&gt; elements...
+          var trs = tbodies[h].getElementsByTagName("tr");
+
+          // ... and iterate through them
+          for (var i = 0; i < trs.length; i++)
+          {
+              // avoid rows that have a class attribute
+              // or backgroundColor style
+              if (! hasClass(trs[i]) &&
+                  ! trs[i].style.backgroundColor)
+              {
+                  // get all the cells in this row...
+                  var tds = trs[i].getElementsByTagName("td");
+
+                  // and iterate through them...
+                  for (var j = 0; j < tds.length; j++)
+                  {
+                      var mytd = tds[j];
+
+                      // avoid cells that have a class attribute
+                      // or backgroundColor style
+                      if (! hasClass(mytd) &&
+                          ! mytd.style.backgroundColor)
+                      {
+                          mytd.style.backgroundColor =
+                            even ? evenColor : oddColor;
+                      }
+                  }
+              }
+              // flip from odd to even, or vice-versa
+              even =  ! even;
+          }
+      }
+  }
+
+  function toggle_invis( name )
+  {
+      var filter =
+        { acceptNode:
+          function( node )
+          { var classname = node.id;
+            if( classname )
+            { var classbase = classname.substr( 0, name.length );
+              if( classbase == name ) { return NodeFilter.FILTER_ACCEPT; } }
+            return NodeFilter.FILTER_SKIP; } };
+      var walker = document.createTreeWalker( document.body           ,
+                                              NodeFilter.SHOW_ELEMENT ,
+                                              filter                  ,
+                                              false                   );
+      while( walker.nextNode() )
+      {
+          var e = walker.currentNode;
+          if( e.style.display == "none" ) { e.style.display = "inline"; }
+          else                            { e.style.display = "none";   }
+      }
+  }
+--> </script>
+  </head>
+  <body onload="stripe('index'); return true;">
+
+<pre><span class="keyword">pro</span> <span class="function-name">maven_ion_fluxes</span>
+
+<span class="comment-delimiter">; </span><span class="comment">restore, 'maven_file_date_list.sav'
+</span><span class="comment-delimiter">; </span><span class="comment">num_dates = n_elements(date_list)
+</span>
+
+<span class="comment-delimiter">;</span><span class="comment">spawn, 'rm -v *_out.sav'
+</span><span class="comment-delimiter">;</span><span class="comment">for i = 0, num_dates-1 do begin
+</span><span class="comment-delimiter">;  </span><span class="comment">mvn_kp_read, [date_list[i]], insitu_in, /insitu_only, /text_files
+</span><span class="comment-delimiter">;  </span><span class="comment">mvn_kp_insitu_search,  insitu_in,  insitu_out, parameter=[77,80,83,86]
+</span><span class="comment-delimiter">;  </span><span class="comment">mvn_kp_insitu_search,  insitu_in,  insitu_out, min=250, max=300, parameter='spacecraft.altitude'
+</span><span class="comment-delimiter">;  </span><span class="comment">help, insitu_out
+</span><span class="comment-delimiter">;  </span><span class="comment">data_check = isa(insitu_out,/integer)
+</span><span class="comment-delimiter">;  </span><span class="comment">if (data_check eq 0) then begin
+</span><span class="comment-delimiter">;    </span><span class="comment">save, insitu_out, filename='insitu_'+date_list[i]+'_out.sav'
+</span><span class="comment-delimiter">;  </span><span class="comment">endif else begin
+</span><span class="comment-delimiter">;    </span><span class="comment">print, 'NO DATA'
+</span><span class="comment-delimiter">;  </span><span class="comment">endelse
+</span><span class="comment-delimiter">;</span><span class="comment">endfor
+</span>
+spawn, <span class="string">'ls *out.sav'</span>, file_list
+num_files = n_elements(file_list)
+
+<span class="comment-delimiter">;</span><span class="comment">=== Create pointers to store data ===;
+</span>time_pointer = ptrarr(num_files)
+orbit_pointer = ptrarr(num_files)
+io_bound_pointer = ptrarr(num_files)
+altitude_pointer = ptrarr(num_files)
+hplus_flux_pointer = ptrarr(num_files)
+heplus_flux_pointer = ptrarr(num_files)
+oplus_flux_pointer = ptrarr(num_files)
+o2plus_flux_pointer = ptrarr(num_files)
+
+<span class="comment-delimiter">;</span><span class="comment">=== Store data in pointers to retrieve later ===;
+</span><span class="keyword">for</span> i = 0, num_files-1 <span class="keyword">do</span> <span class="keyword">begin</span>
+	<span class="comment-delimiter">;</span><span class="comment">=== Restore data file ===;
+</span>	
+	restore, file_list[i]
+	<span class="comment-delimiter">;</span><span class="comment">=== Grab meta data ===;
+</span>	time = insitu_out.time_string
+	orbit = insitu_out.orbit
+	io_bound = insitu_out.io_bound
+	altitude = insitu_out.spacecraft.altitude
+	
+	time_pointer[i] = ptr_new(time)
+	orbit_pointer[i] = ptr_new(orbit)
+	io_bound_pointer[i] = ptr_new(io_bound)
+	altitude_pointer[i] = ptr_new(altitude)
+	
+	<span class="comment-delimiter">;</span><span class="comment">=== Grab ion fluxes ===;
+</span>	hplus_flux = insitu_out.static.HPLUS_OMNI_DIRECTIONAL_FLUX
+	heplus_flux = insitu_out.static.HEPLUS_OMNI_DIRECTIONAL_FLUX
+	oplus_flux = insitu_out.static.OPLUS_OMNI_DIRECTIONAL_FLUX
+	o2plus_flux = insitu_out.static.O2PLUS_OMNI_DIRECTIONAL_FLUX
+	
+	hplus_flux_pointer[i] = ptr_new(hplus_flux)
+	heplus_flux_pointer[i] = ptr_new(heplus_flux)
+	oplus_flux_pointer[i] = ptr_new(oplus_flux)
+	o2plus_flux_pointer[i] = ptr_new(o2plus_flux)	
+<span class="keyword">endfor</span>
+
+<span class="comment-delimiter">;</span><span class="comment">=== Re-organize pointer data into a list ===;
+</span>time_list = []
+orbit_list = []
+io_bound_list = []
+altitude_list = []
+hplus_flux_list = []
+heplus_flux_list = []
+oplus_flux_list = []
+o2plus_flux_list = []
+
+
+<span class="keyword">for</span> i = 0, num_files-1 <span class="keyword">do</span> <span class="keyword">begin</span>
+	temp_time = (*time_pointer[i])
+	time_list = [time_list,temp_time]
+	
+	temp_orbit = (*orbit_pointer[i])
+	orbit_list = [orbit_list,temp_orbit]
+	
+	temp_io_bound = (*io_bound_pointer[i])
+	io_bound_list = [io_bound_list,temp_io_bound]
+	
+	temp_altitude = (*altitude_pointer[i])
+	altitude_list = [altitude_list,temp_altitude]
+	
+	temp_hplus_flux = (*hplus_flux_pointer[i])
+	hplus_flux_list = [hplus_flux_list,temp_hplus_flux]
+	
+	temp_heplus_flux = (*heplus_flux_pointer[i])
+	heplus_flux_list = [heplus_flux_list,temp_heplus_flux]
+	
+	temp_oplus_flux = (*oplus_flux_pointer[i])
+	oplus_flux_list = [oplus_flux_list,temp_oplus_flux]
+	
+	temp_o2plus_flux = (*o2plus_flux_pointer[i])
+	o2plus_flux_list = [o2plus_flux_list,temp_o2plus_flux]
+<span class="keyword">endfor</span>
+
+save, time_list, orbit_list, altitude_list, io_bound_list, hplus_flux_list, heplus_flux_list, oplus_flux_list, o2plus_flux_list, <span class="constant">/compress</span> 
+<span class="comment-delimiter">;</span><span class="comment">$, filename = 'time_list.sav', 'orbit_list.sav', 'altitude_list.sav', 'io_bound_list.sav', 'hplus_flux_list.sav',$
+</span><span class="comment-delimiter">;  </span><span class="comment">'heplus_flux_list.sav','oplus_flux_list.sav','o2plus_flux_list.sav'
+</span>
+<span class="comment-delimiter">;</span><span class="comment">hplus_flux = where(hplus_flux_list gt 0d) ;heplus_flux = where(heplus_flux_list gt 0d)
+</span><span class="comment-delimiter">;</span><span class="comment">oplus_flux = where(oplus_flux_list gt 0d) ;o2plus_flux = where(o2plus_flux_list gt 0d)
+</span>
+<span class="comment-delimiter">;</span><span class="comment">for i = 0, io_bound_list-1 do begin
+</span><span class="comment-delimiter">;  </span><span class="comment">if (io_bound_list(i) eq I) then begin
+</span><span class="comment-delimiter">;  </span><span class="comment">inbound_data = io_bound_list(i)  
+</span><span class="comment-delimiter">;  </span><span class="comment">endif else begin
+</span><span class="comment-delimiter">;  </span><span class="comment">outbound_data = io_bound_list(i)    
+</span><span class="comment-delimiter">;  </span><span class="comment">endelse
+</span><span class="comment-delimiter">;</span><span class="comment">endfor
+</span>
+<span class="constant">time_array =</span> fltarr(7,n_elements(time_list))
+<span class="keyword">for</span> i = 0, n_elements(time_list)-1 <span class="keyword">do</span> <span class="keyword">begin</span>
+	time_split = strsplit(time_list[i],<span class="string">'-:T'</span>,<span class="constant">/extract</span>)
+	time_split = fix(time_split)
+	<span class="keyword">for</span> j = 0, 5 <span class="keyword">do</span> <span class="keyword">begin</span>
+		time_array[j,i] = time_split[j]
+	<span class="keyword">endfor</span>	
+<span class="keyword">endfor</span>
+
+date_array = time_array[0:5,*]
+
+date_array2 = date_array[0,*]
+date_array3 = date_array[1,*]
+date_array4 = date_array[2,*]
+date_array[0,*] = date_array3
+date_array[1,*] = date_array4
+date_array[2,*] = date_array2
+
+julday_array = julday(date_array[0,*],date_array[1,*],date_array[2,*], $
+date_array[3,*],date_array[4,*],date_array[5,*])
+
+index_in = where(strmatch(io_bound_list, <span class="string">'I'</span>, <span class="constant">/fold_case</span>) <span class="keyword">eq</span> 1)
+altitudes_bin_in = altitude_list(index_in)
+juldays_bin_in = julday_array(index_in)
+hplus_bin_in = hplus_flux_list(index_in)
+heplusplus_bin_in = heplus_flux_list(index_in)
+oplus_bin_in = oplus_flux_list(index_in)
+o2plus_bin_in = o2plus_flux_list(index_in)
+
+index_out = where( strmatch(io_bound_list, <span class="string">'O'</span>, <span class="constant">/fold_case</span>) <span class="keyword">eq</span> 1)
+altitudes_bin_out = altitude_list(index_out)
+juldays_bin_out = julday_array(index_out)
+hplus_bin_out = hplus_flux_list(index_out)
+heplusplus_bin_out = heplus_flux_list(index_out)
+oplus_bin_out = oplus_flux_list(index_out)
+o2plus_bin_out = o2plus_flux_list(index_out)
+
+start_day_in = fltarr(16)
+index_in = fltarr(16)
+start_day_out = fltarr(16)
+index_out = fltarr(16)
+
+<span class="keyword">for</span> i = 0, 15 <span class="keyword">do</span> <span class="keyword">begin</span>
+  start_day_in(i) = juldays_bin_in(0) + 26.0*(i)
+  index_in(i) = closest(juldays_bin_in,start_day_in(i))
+  start_day_out(i) = juldays_bin_out(0) + 26.0*(i)
+  index_out(i) = closest(juldays_bin_out,start_day_out(i))
+<span class="keyword">endfor</span>
+
+juldays_start_in = fltarr(16)
+ls_in_julday = fltarr(16)
+hplus_in = fltarr(16)
+heplusplus_in = fltarr(16)
+oplus_in = fltarr(16)
+o2plus_in = fltarr(16)
+
+juldays_start_out = fltarr(16)
+ls_out_julday = fltarr(16)
+hplus_out = fltarr(16)
+heplusplus_out = fltarr(16)
+oplus_out = fltarr(16)
+o2plus_out = fltarr(16)
+
+juldays_med_out = fltarr(16)
+
+<span class="keyword">for</span> i = 0, 15 <span class="keyword">do</span> <span class="keyword">begin</span>
+  <span class="keyword">if</span> (i <span class="keyword">lt</span> 15) <span class="keyword">then</span> <span class="keyword">begin</span>
+    juldays_start_in(i) = juldays_bin_in(index_in(i))
+    ls_in_julday(i) = median(juldays_bin_in(index_in(i):(index_in(i+1)-1)))
+    hplus_in(i) = avg(hplus_bin_in(index_in(i):(index_in(i+1)-1)), <span class="constant">/nan</span>)
+    heplusplus_in(i) = avg(heplusplus_bin_in(index_in(i):(index_in(i+1)-1)), <span class="constant">/nan</span>)
+    oplus_in(i) = avg(oplus_bin_in(index_in(i):(index_in(i+1)-1)), <span class="constant">/nan</span>)
+    o2plus_in(i) = avg(o2plus_bin_in(index_in(i):(index_in(i+1)-1)), <span class="constant">/nan</span>)
+    <span class="comment-delimiter">;</span><span class="comment">outbound
+</span>    juldays_start_out(i) = juldays_bin_out(index_out(i))
+    ls_out_julday(i) = median(juldays_bin_out(index_out(i):(index_out(i+1)-1)))
+    hplus_out(i) = avg(hplus_bin_out(index_out(i):(index_out(i+1)-1)), <span class="constant">/nan</span>)
+    heplusplus_out(i) = avg(heplusplus_bin_out(index_out(i):(index_out(i+1)-1)), <span class="constant">/nan</span>)
+    oplus_out(i) = avg(oplus_bin_out(index_out(i):(index_out(i+1)-1)), <span class="constant">/nan</span>)
+    o2plus_out(i) = avg(o2plus_bin_out(index_out(i):(index_out(i+1)-1)), <span class="constant">/nan</span>)
+    <span class="keyword">endif</span> <span class="keyword">else</span> <span class="keyword">begin</span>    
+      juldays_start_in(i) = juldays_bin_in(index_in(i))
+      hplus_in(i) = hplus_bin_in(39332)
+      heplusplus_in(i) = heplusplus_bin_in(39332)
+      oplus_in(i) = oplus_bin_in(39332)
+      o2plus_in(i) = o2plus_bin_in(39332)
+      
+      <span class="comment-delimiter">;</span><span class="comment">outbound
+</span>      juldays_start_out(i) = juldays_bin_out(index_out(i))
+      hplus_out(i) = hplus_bin_out(39219)
+      heplusplus_out(i) = heplusplus_bin_out(39219)
+      oplus_out(i) = oplus_bin_out(39219)
+      o2plus_out(i) = o2plus_bin_out(39219)
+      
+    <span class="keyword">endelse</span>
+<span class="keyword">endfor</span>
+
+caldat, ls_in_julday, m, d, y
+caldat, ls_out_julday, m, d, y
+
+<span class="comment-delimiter">; </span><span class="comment">01. (NOV 28, 2014) 11/28/2014 : 242.1
+</span><span class="comment-delimiter">; </span><span class="comment">02. (DEC 25, 2014) 12/25/2014 : 259.3
+</span><span class="comment-delimiter">; </span><span class="comment">03. (JAN 20, 2015) 01/20/2015 : 275.6
+</span><span class="comment-delimiter">; </span><span class="comment">04. (FEB 15, 2015) 02/15/2015 : 291.7
+</span><span class="comment-delimiter">; </span><span class="comment">05. (MAR 13, 2015) 03/13/2015 : 307.2
+</span><span class="comment-delimiter">; </span><span class="comment">06. (APR 07, 2015) 04/07/2015 : 321.6
+</span><span class="comment-delimiter">; </span><span class="comment">07. (MAY 04, 2015) 05/04/2015 : 336.5
+</span><span class="comment-delimiter">; </span><span class="comment">08. (MAY 30, 2015) 05/30/2015 : 350.2
+</span><span class="comment-delimiter">; </span><span class="comment">09. (JUN 24, 2015) 06/24/2015 : 2.9
+</span><span class="comment-delimiter">; </span><span class="comment">10. (JUL 21, 2015) 07/21/2015 : 15.9
+</span><span class="comment-delimiter">; </span><span class="comment">11. (AUG 10, 2015) 08/10/2015 : 25.3
+</span><span class="comment-delimiter">; </span><span class="comment">12. (SEP 13, 2015) 09/13/2015 : 40.8
+</span><span class="comment-delimiter">; </span><span class="comment">13. (OCT 10, 2015) 10/10/2015 : 52.8
+</span>
+<span class="comment-delimiter">;</span><span class="comment">=======================FFT============================;
+</span><span class="comment-delimiter">;</span><span class="comment">n = 16
+</span><span class="comment-delimiter">;</span><span class="comment">x_fft = findgen((n-1)/2)+1
+</span><span class="comment-delimiter">;</span><span class="comment">frequency = [0.0, x_fft, n/2, -n/2 + x_fft]/(n/26.4)
+</span><span class="comment-delimiter">;</span><span class="comment">fft_hplus_in = fft(hplus_in)
+</span>
+
+replacement_value = 1e-9
+hplus_r = hplus_in/hplus_out
+heplusplus1_r = (heplusplus_in[0:14]+ replacement_value * (heplusplus_in <span class="keyword">eq</span> 0))/(heplusplus_out[0:14] + replacement_value * (heplusplus_out <span class="keyword">eq</span> 0))
+heplusplus_r = [0.0824314, 0.0377712, 0.0704128, 0.175125, 0.280420, $
+   1.03939, 0.307059, 0.0328810, 2.32151, 0.0778948, 0.0995589, 1.47777]
+oplus_r = oplus_in/oplus_out
+o2plus_r = o2plus_in/o2plus_out
+
+<span class="comment-delimiter">;</span><span class="comment">H_to_He_in = hplus_in/(heplusplus_in + replacement_value * (heplusplus_in eq 0))
+</span><span class="comment-delimiter">;</span><span class="comment">hplus_to_heplusplus_in = [2.70850, 0.0, 15.1241, 49.9227, 129.899, 381.611, 37.4467, 15.5343, 437.331, $
+</span><span class="comment-delimiter">;  </span><span class="comment">50.4771, 41.6713, 9.50675, 155.385, 7.92096, 19.7090, 0.0]
+</span><span class="comment-delimiter">;</span><span class="comment">H_to_He_out = hplus_out/(heplusplus_out + replacement_value * (heplusplus_out eq 0))
+</span><span class="comment-delimiter">;</span><span class="comment">hplus_to_heplusplus_out = [26.3993, 12613.3, 5.89489, 38.9599, 95.1284, 83.9728, 11.5927, 198.421, $
+</span><span class="comment-delimiter">;  </span><span class="comment">76.2753, 8.89738, 72.2546, 6.10537, 3.59737, 3.40977, 0.0, 0.0]
+</span><span class="comment-delimiter">;</span><span class="comment">O_to_He_in = oplus_in/(heplusplus_in + replacement_value * (heplusplus_in eq 0))
+</span><span class="comment-delimiter">;</span><span class="comment">oplus_to_heplusplus_in = [8.19765, 0.0, 6.98912, 28.5896, 76.0581, 380.351, 70.6385, 73.4083, 750.177, $
+</span><span class="comment-delimiter">;  </span><span class="comment">111.154, 66.6439, 25.2588, 564.500, 24.7540, 113.505, 0.0]
+</span><span class="comment-delimiter">;</span><span class="comment">O_to_He_out = oplus_out/(heplusplus_out + replacement_value * (heplusplus_out eq 0))
+</span><span class="comment-delimiter">;</span><span class="comment">oplus_to_heplusplus_out = [58.0484, 248734., 11.3507, 12.0900, 8.38720, 21.3459, 46.8137, 696.104, $
+</span><span class="comment-delimiter">;  </span><span class="comment">133.183, 15.3770, 84.1354, 1.81461, 3.06917, 5.79958, 0.0, 0.0]
+</span><span class="comment-delimiter">;</span><span class="comment">O2_to_He_in = o2plus_in/(heplusplus_in + replacement_value * (heplusplus_in eq 0))
+</span><span class="comment-delimiter">;</span><span class="comment">o2plus_to_heplusplus_in = [66.8315, 0.0, 8.72689, 112.202, 314.766, 1888.19, 246.750, 145.589, 1827.63, $
+</span><span class="comment-delimiter">;  </span><span class="comment">286.511, 50.3190, 53.5441, 1695.23, 63.768, 309.653, 0.0]
+</span><span class="comment-delimiter">;</span><span class="comment">O2_to_He_out = o2plus_out/(heplusplus_out + replacement_value * (heplusplus_out eq 0))
+</span><span class="comment-delimiter">;</span><span class="comment">o2plus_to_heplusplus_out = [78.1726, 240904., 29.1443, 21.0011, 22.6573, 41.5974, 93.0881, 4629.36, $
+</span><span class="comment-delimiter">;  </span><span class="comment">252.491, 32.2095, 476.881, 2.51320, 5.59455, 14.9388, 0.0, 0.0]
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgWindow
+</span><span class="comment-delimiter">;</span><span class="comment">cgPlot, frequency[1:8], fft_hplus_in[1:15,*], $
+</span>  <span class="comment-delimiter">;</span><span class="comment">color='red', PSym=-13, SymColor='olive', SymSize=1.5, $
+</span><span class="comment-delimiter">;  </span><span class="comment">xtitle = 'Frequency', $
+</span> <span class="comment-delimiter">; </span><span class="comment">xrange = [0,15], yrange = [1e5,1e8], $
+</span>  <span class="comment-delimiter">;</span><span class="comment">xticks = 4, xtickname = xTick, $
+</span><span class="comment-delimiter">;  </span><span class="comment">ytitle = 'H+ Flux, (cm^2 s)^-1 [INBOUND]', $
+</span><span class="comment-delimiter">;  </span><span class="comment">title = 'FFT of H+ Flux Between 250 and 300 km [INBOUND]', /addcmd
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgControl, output ='FFT_hplus_flux_in.png'
+</span><span class="comment-delimiter">;</span><span class="comment">cgControl, /DESTROY
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgWindow
+</span><span class="comment-delimiter">;</span><span class="comment">cgPlot, frequency[1:8], abs(fft_hplus_in[1:15,*])^2, $
+</span><span class="comment-delimiter">;  </span><span class="comment">title = 'Power vs Frequency Plot of H+ Flux Between 250 and 300 km [INBOUND]', $
+</span><span class="comment-delimiter">;  </span><span class="comment">ytitle = 'Power', xtitle = 'Frequency', /addcmd
+</span><span class="comment-delimiter">;</span><span class="comment">cgControl, output = 'power_spectrum_hplus_flux_in.png'
+</span><span class="comment-delimiter">;</span><span class="comment">cgControl, /DESTROY
+</span><span class="comment-delimiter">;</span><span class="comment">=======================================================================================;
+</span>
+<span class="comment-delimiter">;</span><span class="comment">xTick = ['Nov 28, 2014', 'Feb15/15', 'May04/15', 'Jul21/15', 'Oct10/15'] ; Earthday
+</span> <span class="constant">xTick =</span> [<span class="string">'242.1'</span>,<span class="string">'291.7'</span>,<span class="string">'336.5'</span>,<span class="string">'15.9'</span>,<span class="string">'52.8'</span>]
+<span class="comment-delimiter">;        </span><span class="comment">[32-09-472, 32-10-549, 32-12-625, 33-01-32, 33-02-111]
+</span>x = indgen(13)
+ya = [2.45699e+06, 2.45702e+06, 2.45704e+06, 2.45707e+06, 2.45709e+06, $
+      2.45712e+06, 2.45715e+06, 2.45717e+06, 2.45720e+06, 2.45722e+06, $
+      2.45724e+06, 2.45728e+06, 2.45731e+06]
+    
+<span class="comment-delimiter">; </span><span class="comment">Ls = [242.1, 259.3, 275.6, 291.7, 307.2, 321.6, 336.5, 350.2, 2.9, 15.9, 25.3, 40.8, 52.8]
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgWindow
+</span><span class="comment-delimiter">;</span><span class="comment">cgLoadCT, 25, /addcmd
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgPlot, x, hplus_to_heplusplus_in, $
+</span><span class="comment-delimiter">;  </span><span class="comment">color='blue', PSym=-12, SymColor='olive', SymSize=1.5, $
+</span><span class="comment-delimiter">;  </span><span class="comment">xtitle = '26-day Cycles (Sep 21, 2014 to Nov 10, 2015)', $
+</span><span class="comment-delimiter">;  </span><span class="comment">xrange = [0,15], yrange = [1e-1,3e5], /ylog, $
+</span><span class="comment-delimiter">;  </span><span class="comment">xticks = 5, xtickname = xTick, $
+</span><span class="comment-delimiter">;  </span><span class="comment">ytitle = 'H+ to He++ Ratio [IN]', $
+</span><span class="comment-delimiter">;  </span><span class="comment">title = 'H+ to He++ [IN] Between 250 and 300 km', /addcmd
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgControl, output ='hplus_to_heplusplus_in.png'
+</span><span class="comment-delimiter">;</span><span class="comment">cgControl, /DESTROY
+</span> 
+<span class="comment-delimiter">;</span><span class="comment">cgWindow
+</span><span class="comment-delimiter">;</span><span class="comment">cgLoadCT, 25, /addcmd;
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgPlot, x, hplus_to_heplusplus_out, $
+</span><span class="comment-delimiter">;  </span><span class="comment">color='blue', PSym=-12, SymColor='olive', SymSize=1.5, $
+</span><span class="comment-delimiter">;  </span><span class="comment">xtitle = '26-day Cycles (Sep 21, 2014 to Nov 10, 2015)', $
+</span><span class="comment-delimiter">;  </span><span class="comment">xrange = [0,15], yrange = [1e-1,3e5], /ylog, $
+</span><span class="comment-delimiter">;  </span><span class="comment">xticks = 5, xtickname = xTick, $
+</span><span class="comment-delimiter">;  </span><span class="comment">ytitle = 'H+ to He++ Ratio [OUT]', $
+</span><span class="comment-delimiter">;  </span><span class="comment">title = 'H+ to He++ [OUT] Between 250 and 300 km', /addcmd
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgControl, output ='hplus_to_heplusplus_out.png'
+</span><span class="comment-delimiter">;</span><span class="comment">cgControl, /DESTROY 
+</span> 
+<span class="comment-delimiter">;</span><span class="comment">cgWindow
+</span><span class="comment-delimiter">;</span><span class="comment">cgLoadCT, 25, /addcmd
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgWindow
+</span><span class="comment-delimiter">;</span><span class="comment">cgLoadCT, 25, /addcmd
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgPlot, x, oplus_to_heplusplus_in, $
+</span><span class="comment-delimiter">;  </span><span class="comment">color='blue', PSym=-12, SymColor='olive', SymSize=1.5, $
+</span><span class="comment-delimiter">;  </span><span class="comment">xtitle = '26-day Cycles (Sep 21, 2014 to Nov 10, 2015)', $
+</span><span class="comment-delimiter">;  </span><span class="comment">xrange = [0,15], yrange = [1e-1,3e5], /ylog, $
+</span><span class="comment-delimiter">;  </span><span class="comment">xticks = 5, xtickname = xTick, $
+</span><span class="comment-delimiter">;  </span><span class="comment">ytitle = 'O+ to He++ Ratio [IN]', $
+</span><span class="comment-delimiter">;  </span><span class="comment">title = 'O+ to He++ [IN] Between 250 and 300 km', /addcmd
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgControl, output ='oplus_to_heplusplus_in.png'
+</span><span class="comment-delimiter">;</span><span class="comment">cgControl, /DESTROY
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgWindow
+</span><span class="comment-delimiter">;</span><span class="comment">cgLoadCT, 25, /addcmd
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgPlot, x, oplus_to_heplusplus_out, $
+</span><span class="comment-delimiter">;  </span><span class="comment">color='blue', PSym=-12, SymColor='olive', SymSize=1.5, $
+</span><span class="comment-delimiter">;  </span><span class="comment">xtitle = '26-day Cycles (Sep 21, 2014 to Nov 10, 2015)', $
+</span><span class="comment-delimiter">;  </span><span class="comment">xrange = [0,15], yrange = [1e-1,3e5], /ylog, $
+</span><span class="comment-delimiter">;  </span><span class="comment">xticks = 5, xtickname = xTick, $
+</span><span class="comment-delimiter">;  </span><span class="comment">ytitle = 'O+ to He++ Ratio [OUT]', $
+</span><span class="comment-delimiter">;  </span><span class="comment">title = 'O+ to He++ [OUT] Between 250 and 300 km', /addcmd;
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgControl, output ='oplus_to_heplusplus_out.png'
+</span><span class="comment-delimiter">;</span><span class="comment">cgControl, /DESTROY
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgWindow
+</span><span class="comment-delimiter">;</span><span class="comment">cgLoadCT, 25, /addcmd
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgPlot, x, o2plus_to_heplusplus_in, $
+</span><span class="comment-delimiter">;  </span><span class="comment">color='blue', PSym=-12, SymColor='olive', SymSize=1.5, $
+</span><span class="comment-delimiter">;  </span><span class="comment">xtitle = '26-day Cycles (Sep 21, 2014 to Nov 10, 2015)', $
+</span><span class="comment-delimiter">;  </span><span class="comment">xrange = [0,15], yrange = [1e-1,3e5], /ylog, $
+</span><span class="comment-delimiter">;  </span><span class="comment">xticks = 5, xtickname = xTick, $
+</span><span class="comment-delimiter">;  </span><span class="comment">ytitle = 'O2+ to He++ Ratio [IN]', $
+</span><span class="comment-delimiter">;  </span><span class="comment">title = 'O2+ to He++ [IN] Between 250 and 300 km', /addcmd
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgControl, output ='o2plus_to_heplusplus_in.png'
+</span><span class="comment-delimiter">;</span><span class="comment">cgControl, /DESTROY
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgWindow
+</span><span class="comment-delimiter">;</span><span class="comment">cgLoadCT, 25, /addcmd
+</span><span class="comment-delimiter">;</span><span class="comment">
+</span><span class="comment-delimiter">;</span><span class="comment">cgPlot, x, o2plus_to_heplusplus_out, $
+</span><span class="comment-delimiter">;  </span><span class="comment">color='blue', PSym=-12, SymColor='olive', SymSize=1.5, $
+</span><span class="comment-delimiter">;  </span><span class="comment">xtitle = '26-day Cycles (Sep 21, 2014 to Nov 10, 2015)', $
+</span><span class="comment-delimiter">;  </span><span class="comment">xrange = [0,15], yrange = [1e-1,3e5], /ylog, $
+</span><span class="comment-delimiter">;  </span><span class="comment">xticks = 5, xtickname = xTick, $
+</span><span class="comment-delimiter">;  </span><span class="comment">ytitle = 'O2+ to He++ Ratio [OUT]', $
+</span><span class="comment-delimiter">;  </span><span class="comment">title = 'O2+ to He++ [OUT] Between 250 and 300 km', /addcmd
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgControl, output ='o2plus_to_heplusplus_out.png'
+</span><span class="comment-delimiter">;</span><span class="comment">cgControl, /DESTROY
+</span>
+cgWindow
+cgLoadCT, 25, <span class="constant">/addcmd</span>
+
+cgPlot, ls_out_julday[2:14], hplus_r[2:14], $
+  <span class="constant">color=</span><span class="string">'blue'</span>, <span class="constant">PSym=</span>-13, <span class="constant">SymColor=</span><span class="string">'olive'</span>, <span class="constant">SymSize=</span>1.5, $
+  <span class="constant">xtitle =</span> <span class="string">'Martian Solar Longitude, Ls'</span>, $
+  <span class="constant">xrange =</span> [min(ls_out_julday[2:14]), max(ls_out_julday[2:14])], $
+  <span class="constant">yrange =</span> [1e-2,1e2], <span class="constant">/ylog</span>, <span class="constant">xticks =</span> 8, <span class="constant">xtickname =</span> xTick, $
+  <span class="constant">ytitle =</span> <span class="string">'H+ Flux Ratio (I/O)'</span>, $
+  <span class="constant">title =</span> <span class="string">'H+ Flux Ratio (I/O) Between 250 and 300 km'</span>, <span class="constant">/addcmd</span>
+
+cgControl, <span class="constant">output =</span><span class="string">'hplus_r.png'</span>
+cgControl, <span class="constant">/DESTROY</span>
+
+cgWindow
+cgLoadCT, 25, <span class="constant">/addcmd</span>
+
+cgPlot, ls_out_julday[2:14], heplusplus_r, $
+  <span class="constant">color=</span><span class="string">'blue'</span>, <span class="constant">PSym=</span>-14, <span class="constant">SymColor=</span><span class="string">'olive'</span>, <span class="constant">SymSize=</span>1.5, $
+  <span class="constant">xtitle =</span> <span class="string">'Martian Solar Longitude, Ls'</span>, $
+  <span class="constant">xrange =</span> [min(ls_out_julday[2:14]), max(ls_out_julday[2:14])], $
+  <span class="constant">yrange =</span> [1e-2,1e2], <span class="constant">/ylog</span>, <span class="constant">xticks =</span> 8, <span class="constant">xtickname =</span> xTick, $
+  <span class="constant">ytitle =</span> <span class="string">'He+ Flux Ratio (I/O)'</span>, $
+  <span class="constant">title =</span> <span class="string">'He++ Flux Ratio (I/O) Between 250 and 300 km'</span>, <span class="constant">/addcmd</span>
+
+cgControl, <span class="constant">output =</span><span class="string">'heplusplus_r.png'</span>
+cgControl, <span class="constant">/DESTROY</span>
+
+cgWindow
+cgLoadCT, 25, <span class="constant">/addcmd</span>
+
+cgPlot, ls_out_julday[2:14], oplus_r[2:14], $
+  <span class="constant">color=</span><span class="string">'blue'</span>, <span class="constant">PSym=</span>-15, <span class="constant">SymColor=</span><span class="string">'olive'</span>, <span class="constant">SymSize=</span>1.5, $
+  <span class="constant">xtitle =</span> <span class="string">'Martian Solar Longitude, Ls'</span>, $
+  <span class="constant">xrange =</span> [min(ls_out_julday[2:14]), max(ls_out_julday[2:14])], $
+  <span class="constant">yrange =</span> [1e-2,1e2], <span class="constant">/ylog</span>, <span class="constant">xticks =</span> 8, <span class="constant">xtickname =</span> xTick, $
+  <span class="constant">ytitle =</span> <span class="string">'O+ Flux Ratio (I/O)'</span>, $
+  <span class="constant">title =</span> <span class="string">'O+ Flux Ratio (I/O) Between 250 and 300 km'</span>, <span class="constant">/addcmd</span>
+
+cgControl, <span class="constant">output =</span><span class="string">'oplus_r.png'</span>
+cgControl, <span class="constant">/DESTROY</span>
+
+cgWindow
+cgLoadCT, 25, <span class="constant">/addcmd</span>
+
+cgPlot, ls_out_julday[2:14], o2plus_r[2:14], $
+  <span class="constant">color=</span><span class="string">'blue'</span>, <span class="constant">PSym=</span>-16, <span class="constant">SymColor=</span><span class="string">'olive'</span>, <span class="constant">SymSize=</span>1.5, $
+  <span class="constant">xtitle =</span> <span class="string">'Martian Solar Longitude, Ls'</span>, $
+  <span class="constant">xrange =</span> [min(ls_out_julday[2:14]), max(ls_out_julday[2:14])], $
+  <span class="constant">yrange =</span> [1e-2,1e2], <span class="constant">/ylog</span>, <span class="constant">xticks =</span> 8, <span class="constant">xtickname =</span> xTick, $
+  <span class="constant">ytitle =</span> <span class="string">'O2+ Flux Ratio (I/O)'</span>, $
+  <span class="constant">title =</span> <span class="string">'O2+ Flux Ratio (I/O) Between 250 and 300 km'</span>, <span class="constant">/addcmd</span>
+
+cgControl, <span class="constant">output =</span><span class="string">'o2plus_r.png'</span>
+cgControl, <span class="constant">/DESTROY</span>
+
+cgWindow
+cgLoadCT, 25, <span class="constant">/addcmd</span>
+
+cgPlot, ls_out_julday[2:14], hplus_in[2:14], $
+  <span class="constant">color=</span><span class="string">'red'</span>, <span class="constant">PSym=</span>-13, <span class="constant">SymColor=</span><span class="string">'olive'</span>, <span class="constant">SymSize=</span>1.5, $
+  <span class="constant">xtitle =</span> <span class="string">'Martian Solar Longitude, Ls'</span>, <span class="constant">/ylog</span>, $
+  <span class="constant">xrange =</span> [min(ls_out_julday[2:14]), max(ls_out_julday[2:14])], $
+  <span class="constant">yrange =</span> [1e5,1e8], <span class="constant">xticks =</span> 8, <span class="constant">xtickname =</span> xTick, $
+  <span class="constant">ytitle =</span> <span class="string">'H+ Flux, (cm^2 s)^-1 [INBOUND]'</span>, $
+  <span class="constant">title =</span> <span class="string">'H+ Flux Between 250 and 300 km [INBOUND]'</span>, <span class="constant">/addcmd</span>
+
+cgControl, <span class="constant">output =</span><span class="string">'hplus_flux_in.png'</span>
+cgControl, <span class="constant">/DESTROY</span>
+
+<span class="comment-delimiter">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span><span class="comment">
+</span>
+cgWindow
+cgLoadCT, 25, <span class="constant">/addcmd</span>
+
+cgPlot, ls_out_julday[2:14], hplus_in[2:14], $
+  <span class="constant">color=</span><span class="string">'red'</span>, <span class="constant">PSym=</span>-13, <span class="constant">SymColor=</span><span class="string">'olive'</span>, <span class="constant">SymSize=</span>1.5, $
+  <span class="constant">xtitle =</span> <span class="string">'Martian Solar Longitude, Ls'</span>, <span class="constant">/ylog</span>, $
+  <span class="constant">xrange =</span> [min(ls_out_julday[2:14]), max(ls_out_julday[2:14])], $ 
+  <span class="constant">yrange =</span> [1e5,1e8], <span class="constant">xticks =</span> 8, <span class="constant">xtickname =</span> xTick, $
+  <span class="constant">ytitle =</span> <span class="string">'H+ Flux, (cm^2 s)^-1 [INBOUND]'</span>, $
+  <span class="constant">title =</span> <span class="string">'H+ Flux Between 250 and 300 km [INBOUND]'</span>, <span class="constant">/addcmd</span>
+
+cgControl, <span class="constant">output =</span><span class="string">'hplus_flux_inDate.png'</span>
+cgControl, <span class="constant">/DESTROY</span>
+
+<span class="comment-delimiter">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span><span class="comment">
+</span>
+cgWindow
+cgLoadCT, 25, <span class="constant">/addcmd</span>
+
+cgPlot, ls_out_julday[2:14], heplusplus_in[2:14], $
+  <span class="constant">color=</span><span class="string">'blue'</span>, <span class="constant">PSym=</span>-14, <span class="constant">SymColor=</span><span class="string">'olive'</span>, <span class="constant">SymSize=</span>1.5, $
+  <span class="constant">xtitle =</span> <span class="string">'Martian Solar Longitude, Ls'</span>, <span class="constant">/ylog</span>, $
+  <span class="constant">xrange =</span> [min(ls_out_julday[2:14]), max(ls_out_julday[2:14])], $
+  <span class="constant">yrange =</span> [1e4,1e6], <span class="constant">xticks =</span> 8, <span class="constant">xtickname =</span> xTick, $
+  <span class="constant">ytitle =</span> <span class="string">'He++ Flux, (cm^2 s)^-1 [INBOUND]'</span>, $
+  <span class="constant">title =</span> <span class="string">'He++ Flux Between 250 and 300 km [INBOUND]'</span>, <span class="constant">/addcmd</span>
+
+cgControl, <span class="constant">output =</span><span class="string">'heplusplus_flux_in.png'</span>
+cgControl, <span class="constant">/DESTROY</span>
+
+cgWindow
+cgLoadCT, 25, <span class="constant">/addcmd</span>
+
+cgPlot, ls_out_julday[2:14], oplus_in[2:14], $
+  <span class="constant">color=</span><span class="string">'green'</span>, <span class="constant">PSym=</span>-15, <span class="constant">SymColor=</span><span class="string">'olive'</span>, <span class="constant">SymSize=</span>1.5, $
+  <span class="constant">xtitle =</span> <span class="string">'Martian Solar Longitude, Ls'</span>, <span class="constant">/ylog</span>, $
+  <span class="constant">xrange =</span> [min(ls_out_julday[2:14]), max(ls_out_julday[2:14])], $
+  <span class="constant">yrange =</span> [1e6,1e9], <span class="constant">xticks =</span> 8, <span class="constant">xtickname =</span> xTick, $
+  <span class="constant">ytitle =</span> <span class="string">'O+ Flux, (cm^2 s)^-1 [INBOUND]'</span>, $
+  <span class="constant">title =</span> <span class="string">'O+ Flux Between 250 and 300 km [INBOUND]'</span>, <span class="constant">/addcmd</span>
+
+cgControl, <span class="constant">output =</span><span class="string">'oplus_flux_in.png'</span>
+cgControl, <span class="constant">/DESTROY</span>
+
+cgWindow
+cgLoadCT, 25, <span class="constant">/addcmd</span>
+
+cgPlot, ls_out_julday[2:14], o2plus_in[2:14], $
+  <span class="constant">color=</span><span class="string">'black'</span>, <span class="constant">PSym=</span>-16, <span class="constant">SymColor=</span><span class="string">'olive'</span>, <span class="constant">SymSize=</span>1.5, $
+  <span class="constant">xtitle =</span> <span class="string">'Martian Solar Longitude, Ls'</span>, <span class="constant">/ylog</span>, $ <span class="comment-delimiter">;</span><span class="comment">xrange=[2456925,2457338],
+</span>  <span class="constant">xrange =</span> [min(ls_out_julday[2:14]), max(ls_out_julday[2:14])], $
+  <span class="constant">yrange =</span> [1e6,1e9], <span class="constant">xticks =</span> 8, <span class="constant">xtickname =</span> xTick, $
+  <span class="constant">ytitle =</span> <span class="string">'O2+ Flux, (cm^2 s)^-1 [INBOUND]'</span>, $
+  <span class="constant">title =</span> <span class="string">'O2+ Flux Between 250 and 300 km [INBOUND]'</span>, <span class="constant">/addcmd</span>
+
+cgControl, <span class="constant">output =</span><span class="string">'o2plus_flux_in.png'</span>
+cgControl, <span class="constant">/DESTROY</span>
+
+cgWindow
+cgLoadCT, 25, <span class="constant">/addcmd</span>
+
+cgPlot, ls_out_julday[2:14], hplus_out[2:14], $
+  <span class="constant">color=</span><span class="string">'red'</span>, <span class="constant">PSym=</span>-13, <span class="constant">SymColor=</span><span class="string">'dodger blue'</span>, <span class="constant">SymSize=</span>1.5, $
+  <span class="constant">xtitle =</span> <span class="string">'Martian Solar Longitude, Ls'</span>, <span class="constant">/ylog</span>, $
+  <span class="constant">xrange =</span> [min(ls_out_julday[2:14]), max(ls_out_julday[2:14])], $
+  <span class="constant">yrange =</span> [1e5,1e9], <span class="constant">xticks =</span> 8, <span class="constant">xtickname =</span> xTick, $
+  <span class="constant">ytitle =</span> <span class="string">'H+ Flux, (cm^2 s)^-1 [OUTBOUND]'</span>, $
+  <span class="constant">title =</span> <span class="string">'H+ Flux Between 250 and 300 km [OUTBOUND]'</span>, <span class="constant">/addcmd</span>
+
+cgControl, <span class="constant">output =</span><span class="string">'hplus_flux_out.png'</span>
+cgControl, <span class="constant">/DESTROY</span>
+
+cgWindow
+cgLoadCT, 25, <span class="constant">/addcmd</span>
+
+cgPlot, ls_out_julday[2:14], heplusplus_out[2:14], $
+  <span class="constant">color=</span><span class="string">'blue'</span>, <span class="constant">PSym=</span>-14, <span class="constant">SymColor=</span><span class="string">'dodger blue'</span>, <span class="constant">SymSize=</span>1.5, $
+  <span class="constant">xtitle =</span> <span class="string">'Martian Solar Longitude, Ls'</span>, <span class="constant">/ylog</span>, $
+  <span class="constant">xrange =</span> [min(ls_out_julday[2:14]), max(ls_out_julday[2:14])], $
+  <span class="constant">yrange =</span> [1e3,1e8], <span class="constant">xticks =</span> 8, <span class="constant">xtickname =</span> xTick, $
+  <span class="constant">ytitle =</span> <span class="string">'He++ Flux, (cm^2 s)^-1 [OUTBOUND]'</span>, $
+  <span class="constant">title =</span> <span class="string">'He++ Flux Between 250 and 300 km [OUTBOUND]'</span>, <span class="constant">/addcmd</span>
+
+cgControl, <span class="constant">output =</span><span class="string">'heplusplus_flux_out.png'</span>
+cgControl, <span class="constant">/DESTROY</span>
+
+cgWindow
+cgLoadCT, 25, <span class="constant">/addcmd</span>
+
+cgPlot, ls_out_julday[2:14], oplus_out[2:14], $
+  <span class="constant">color=</span><span class="string">'green'</span>, <span class="constant">PSym=</span>-15, <span class="constant">SymColor=</span><span class="string">'dodger blue'</span>, <span class="constant">SymSize=</span>1.5, $
+  <span class="constant">xtitle =</span> <span class="string">'Martian Solar Longitude, Ls'</span>, <span class="constant">/ylog</span>, $
+  <span class="constant">xrange =</span> [min(ls_out_julday[2:14]), max(ls_out_julday[2:14])], $
+  <span class="constant">yrange =</span> [1e4,1e9], <span class="constant">xticks =</span> 8, <span class="constant">xtickname =</span> xTick, $
+  <span class="constant">ytitle =</span> <span class="string">'O+ Flux, (cm^2 s)^-1 [OUTBOUND]'</span>, $
+  <span class="constant">title =</span> <span class="string">'O+ Flux Between 250 and 300 km [OUTBOUND]'</span>, <span class="constant">/addcmd</span>
+
+cgControl, <span class="constant">output =</span><span class="string">'oplus_flux_out.png'</span>
+cgControl, <span class="constant">/DESTROY</span>
+
+cgWindow
+cgLoadCT, 25, <span class="constant">/addcmd</span>
+
+cgPlot, ls_out_julday[2:14], o2plus_out[2:14], $
+  <span class="constant">color=</span><span class="string">'black'</span>, <span class="constant">PSym=</span>-16, <span class="constant">SymColor=</span><span class="string">'dodger blue'</span>, <span class="constant">SymSize=</span>1.5, $
+  <span class="constant">xtitle =</span> <span class="string">'Martian Solar Longitude, Ls'</span>, <span class="constant">/ylog</span>, $ <span class="comment-delimiter">;</span><span class="comment">xrange=[2456925,2457338],
+</span>  <span class="constant">xrange =</span> [min(ls_out_julday[2:14]), max(ls_out_julday[2:14])], $
+  <span class="constant">yrange =</span> [1e5,1e10], <span class="constant">xticks =</span> 8, <span class="constant">xtickname =</span> xTick, $
+  <span class="constant">ytitle =</span> <span class="string">'O2+ Flux, (cm^2 s)^-1 [OUTBOUND]'</span>, $
+  <span class="constant">title =</span> <span class="string">'O2+ Flux Between 250 and 300 km [OUTBOUND]'</span>, <span class="constant">/addcmd</span>
+
+cgControl, <span class="constant">output =</span><span class="string">'o2plus_flux_out.png'</span>
+cgControl, <span class="constant">/DESTROY</span>
+
+stop
+
+<span class="comment-delimiter">;</span><span class="comment">====================================Plotting Starts======================================;
+</span>
+<span class="comment-delimiter">;</span><span class="comment">xTick = ['Jan (2014)','July (2014)','Jan (2015)','July (2015)','Jan (2016)']
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgWindow
+</span><span class="comment-delimiter">;</span><span class="comment">cgLoadCT, 25, /addcmd
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgPlot, julday_array, hplus_flux_list, $
+</span><span class="comment-delimiter">;  </span><span class="comment">xrange=[2014,2015], xtitle = 'Year', /ylog, $
+</span><span class="comment-delimiter">;  </span><span class="comment">yrange = [min(hplus_flux_list),max(hplus_flux_list)], $
+</span><span class="comment-delimiter">;  </span><span class="comment">xticks = 4, xtickname = xTick, ytitle = 'H+ Flux', $
+</span><span class="comment-delimiter">;  </span><span class="comment">title = 'hplus_flux', /addcmd
+</span><span class="comment-delimiter">;</span><span class="comment">cgControl, output ='hplus_flux2.png'
+</span><span class="comment-delimiter">;</span><span class="comment">cgControl, /DESTROY
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgWindow
+</span><span class="comment-delimiter">;</span><span class="comment">cgLoadCT, 25, /addcmd
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgPlot, julday_array, heplus_flux_list, $
+</span><span class="comment-delimiter">;  </span><span class="comment">xrange=[2014,2015], xtitle = 'Year', /ylog, $
+</span><span class="comment-delimiter">;  </span><span class="comment">yrange = [min(heplus_flux_list),max(heplus_flux_list)], $ 
+</span><span class="comment-delimiter">;  </span><span class="comment">xticks = 4, xtickname = xTick, ytitle = 'He+ Flux', $
+</span><span class="comment-delimiter">;  </span><span class="comment">title = 'heplus_flux', /addcmd
+</span><span class="comment-delimiter">;</span><span class="comment">cgControl, output ='heplus_flux2.png'
+</span><span class="comment-delimiter">;</span><span class="comment">cgControl, /DESTROY
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgWindow
+</span><span class="comment-delimiter">;</span><span class="comment">cgLoadCT, 25, /addcmd
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgPlot, julday_array, oplus_flux_list, $
+</span><span class="comment-delimiter">;  </span><span class="comment">xrange=[2014,2015], xtitle = 'Year', /ylog, $
+</span><span class="comment-delimiter">;  </span><span class="comment">yrange = [min(oplus_flux_list),max(oplus_flux_list)], $
+</span><span class="comment-delimiter">;  </span><span class="comment">xticks = 4, xtickname = xTick, ytitle = 'O+ Flux',$
+</span><span class="comment-delimiter">;  </span><span class="comment">title = 'oplus_flux', /addcmd
+</span><span class="comment-delimiter">;</span><span class="comment">cgControl, output ='oplus_flux2.png'
+</span><span class="comment-delimiter">;</span><span class="comment">cgControl, /DESTROY
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgWindow
+</span><span class="comment-delimiter">;</span><span class="comment">cgLoadCT, 25, /addcmd
+</span>
+<span class="comment-delimiter">;</span><span class="comment">cgPlot, julday_array, o2plus_flux_list, $
+</span><span class="comment-delimiter">;  </span><span class="comment">xrange=[2014,2015], xtitle = 'Year', /ylog, $
+</span><span class="comment-delimiter">;  </span><span class="comment">yrange = [min(o2plus_flux_list),max(o2plus_flux_list)], $
+</span><span class="comment-delimiter">;  </span><span class="comment">xticks = 4, xtickname = xTick, ytitle = 'o2+ Flux', $
+</span><span class="comment-delimiter">;  </span><span class="comment">title = 'o2plus_flux', /addcmd
+</span><span class="comment-delimiter">;</span><span class="comment">cgControl, output ='o2plus_flux2.png'
+</span><span class="comment-delimiter">;</span><span class="comment">cgControl, /DESTROY
+</span><span class="comment-delimiter">;</span><span class="comment">====================================Plotting Starts========================================; 
+</span>
+<span class="keyword">end</span>
+</pre>
+
+ </body>
+</html>
