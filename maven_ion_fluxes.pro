@@ -1,5 +1,6 @@
 pro maven_ion_fluxes
 
+;=== Significantly Contributed by Dr. John J. Blalock at Hampton University ===;
 ; restore, 'maven_file_date_list.sav'
 ; num_dates = n_elements(date_list)
 
