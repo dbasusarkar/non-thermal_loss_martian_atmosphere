@@ -9,6 +9,4 @@
 <p align="center">
   <img width="600" height="440" src="figures/I:O Ratio.png">
 </p>
-
->Ratio between inbound and outbound ion fluxes between 250 and 300 km
   
