@@ -1,4 +1,4 @@
-## Non-thermal Loss of Martian Atmosphere
+## Non-Thermal Loss of Martian Atmosphere
 
 ### Notes
 
