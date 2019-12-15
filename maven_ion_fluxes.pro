@@ -612,6 +612,6 @@ stop
 ;  title = 'o2plus_flux', /addcmd
 ;cgControl, output ='o2plus_flux2.png'
 ;cgControl, /DESTROY
-;====================================Plotting Starts========================================; 
+;====================================Plotting Ends========================================; 
 
 end
